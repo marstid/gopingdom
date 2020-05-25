@@ -1,7 +1,7 @@
 package gopingdom
 
 type ChecksResult struct {
-	Checks []Check `json:"checks"`
+	Checks Checks `json:"checks"`
 	Counts struct {
 		Total    int `json:"total"`
 		Limited  int `json:"limited"`
@@ -12,7 +12,6 @@ type ChecksResult struct {
 type CheckResult struct {
 	Checks Check `json:"check"`
 }
-
 
 type Check struct {
 	Type struct {
@@ -49,6 +48,21 @@ type Check struct {
 	Ipv6                     bool     `json:"ipv6"`
 	VerifyCertificate        bool     `json:"verify_certificate"`
 	SslDownDaysBefore        int      `json:"ssl_down_days_before"`
+}
+
+// Make check slice sortable
+type Checks []Check
+
+func (e Checks) Len() int {
+	return len(e)
+}
+
+func (e Checks) Less(i, j int) bool {
+	return e[i].Name > e[j].Name
+}
+
+func (e Checks) Swap(i, j int) {
+	e[i], e[j] = e[j], e[i]
 }
 
 type Check1 struct {

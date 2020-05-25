@@ -3,9 +3,10 @@ package gopingdom
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
 )
 
-func (r *RestClient) UptimeGetChecks() (cks []Check, error error) {
+func (r *RestClient) UptimeGetChecks() (cks Checks, error error) {
 	uri := "/checks"
 
 	data, err := r.Get(uri)
@@ -13,24 +14,25 @@ func (r *RestClient) UptimeGetChecks() (cks []Check, error error) {
 		fmt.Println("Error: " + err.Error())
 	}
 
-	if r.debug{
+	if r.debug {
 		fmt.Printf("Response: %s", data)
 	}
 
 	var result ChecksResult
 	json.Unmarshal(data, &result)
+	sort.Sort(result.Checks)
 	return result.Checks, nil
 }
 
 func (r *RestClient) UptimeGetCheckDetails(id int) (cks Check, error error) {
-	uri := "/checks/" + fmt.Sprintf("%d",id)
+	uri := "/checks/" + fmt.Sprintf("%d", id)
 
 	data, err := r.Get(uri)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
 	}
 
-	if r.debug{
+	if r.debug {
 		fmt.Printf("Response: %s", data)
 	}
 
