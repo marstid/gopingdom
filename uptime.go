@@ -12,6 +12,7 @@ func (r *RestClient) UptimeGetChecks() (cks Checks, error error) {
 	data, err := r.Get(uri)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
+		return nil, err
 	}
 
 	if r.debug {
@@ -30,6 +31,7 @@ func (r *RestClient) UptimeGetCheckDetails(id int) (cks Check, error error) {
 	data, err := r.Get(uri)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
+		return nil, err
 	}
 
 	if r.debug {
@@ -47,6 +49,7 @@ func (r *RestClient) UptimeGetProbes() (prb []Probe, err error) {
 	data, err := r.Get(uri)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
+		return nil, err
 	}
 
 	var result ProbesResult

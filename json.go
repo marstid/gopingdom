@@ -104,3 +104,38 @@ type Probe struct {
 	Region     string `json:"region"`
 	Ipv6       string `json:"ipv6,omitempty"`
 }
+
+type WebHookPost struct {
+	CheckID     int    `json:"check_id"`
+	CheckName   string `json:"check_name"`
+	CheckType   string `json:"check_type"`
+	CheckParams struct {
+		BasicAuth  bool   `json:"basic_auth"`
+		Encryption bool   `json:"encryption"`
+		FullURL    string `json:"full_url"`
+		Header     string `json:"header"`
+		Hostname   string `json:"hostname"`
+		Ipv6       bool   `json:"ipv6"`
+		Port       int    `json:"port"`
+		URL        string `json:"url"`
+	} `json:"check_params"`
+	Tags                  []string `json:"tags"`
+	PreviousState         string   `json:"previous_state"`
+	CurrentState          string   `json:"current_state"`
+	ImportanceLevel       string   `json:"importance_level"`
+	StateChangedTimestamp int      `json:"state_changed_timestamp"`
+	StateChangedUtcTime   string   `json:"state_changed_utc_time"`
+	LongDescription       string   `json:"long_description"`
+	Description           string   `json:"description"`
+	FirstProbe            struct {
+		IP       string `json:"ip"`
+		Ipv6     string `json:"ipv6"`
+		Location string `json:"location"`
+	} `json:"first_probe"`
+	SecondProbe struct {
+		IP       string `json:"ip"`
+		Ipv6     string `json:"ipv6"`
+		Location string `json:"location"`
+		Version  int    `json:"version"`
+	} `json:"second_probe"`
+}
